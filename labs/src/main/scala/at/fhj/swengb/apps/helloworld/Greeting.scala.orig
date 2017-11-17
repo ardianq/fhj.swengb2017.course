@@ -1,9 +1,0 @@
-package at.fhj.swengb.apps.helloworld
-
-trait Greeting {
-<<<<<<< HEAD
-  lazy val greeting: String = "hello world"
-=======
-  lazy val greeting: String = "hallo wie gehts?"
->>>>>>> upstream/master
-}
