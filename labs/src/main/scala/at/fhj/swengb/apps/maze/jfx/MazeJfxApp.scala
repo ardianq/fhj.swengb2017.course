@@ -38,9 +38,9 @@ class MazeJfxApp extends Application with CanLog {
 
 
   override def start(primaryStage: Stage): Unit = {
-    primaryStage.setTitle("A maze")
+    primaryStage.setTitle("A mazing")
 
-    val maze = MazeGenerator.gen(10, 10, Pos(0, 0), Pos(0, 1), Rect(50, 50))
+    val maze: Maze = MazeGenerator.gen(PositiveInt(10), PositiveInt(10), Pos(0, 0), Pos(9, 9), Rect(50, 50))
     val jfxMaze = JfxMaze(maze, 10, 10)
     val width = jfxMaze.cellWidth
     val height = jfxMaze.cellHeight

@@ -1,6 +1,5 @@
 package at.fhj.swengb.apps.maze
 
-import at.fhj.swengb.apps.maze.jfx.{ClosedDoor, Door, OpenDoor}
 import org.scalatest.WordSpecLike
 
 class MazeSpec extends WordSpecLike {
