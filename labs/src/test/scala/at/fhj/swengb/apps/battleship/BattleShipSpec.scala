@@ -84,12 +84,15 @@ class BattleShipSpec extends WordSpecLike {
     // illegalPos defines a ship which is not possible
     "pos is connected" in {
       intercept[IllegalArgumentException] {
+
         val b = BattleShip("a b c", Set(BattlePos(0, 0),
           BattlePos(1, 0),
           BattlePos(2, 0),
           BattlePos(3, 0),
           BattlePos(5, 0),
         ))
+
+
       }
     }
 

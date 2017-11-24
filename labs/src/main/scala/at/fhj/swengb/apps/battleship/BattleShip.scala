@@ -1,5 +1,8 @@
 package at.fhj.swengb.apps.battleship
 
+import at.fhj.swengb.MathUtil
+
+
 object BattleShip {
 
   /**
@@ -40,19 +43,27 @@ case class BattleShip(name: String, positions: Set[BattlePos]) extends Vessel {
   // require proofs that positions is of size 5
   require(positions.size == 5, s"For mighty battleship '$name' required 5 positions, but got ${positions.size}.")
 
-  // a requirement is missing!
-
   // mission: we have to proof that all x positions or all y positions are the same and that all cells are connected.
 
-  private val allXCoordinatesAreTheSame = positions.map(_.x).size == 1
+  private val xPositions: Set[Int] = positions.map(_.x)
+  private val yPositions: Set[Int] = positions.map(_.y)
 
-  private val allYCoordinatesAreTheSame = positions.map(_.y).size == 1
+  private val allXCoordinatesAreTheSame = xPositions.size == 1
+  private val allYCoordinatesAreTheSame = yPositions.size == 1
 
   val allCoordinatesAreTheSameForXOrY: Boolean = allXCoordinatesAreTheSame || allYCoordinatesAreTheSame
 
   // either all x coordinates are the same or all y coordinates are the same
   require(allCoordinatesAreTheSameForXOrY)
 
+
+  private val isConnectedInXDirection = MathUtil.isConnected(xPositions.toSeq)
+  private val isConnectedInYDirection = MathUtil.isConnected(yPositions.toSeq)
+
+  private val isConnected = isConnectedInXDirection || isConnectedInYDirection
+
   // additional requirement is needed to check for connectedness
-  require(true)
+  // has to be true for all Battleships
+  require(isConnected)
+
 }
