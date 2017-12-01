@@ -7,7 +7,7 @@ import javafx.scene.{Group, Scene}
 import javafx.stage.Stage
 
 import at.fhj.swengb.apps.maze._
-import at.fhj.swengb.common.CanLog
+import at.fhj.utils.CanLog
 
 import scala.collection.JavaConverters._
 

@@ -1,4 +1,4 @@
-package at.fhj.swengb
+package at.fhj.swengb.apps.battleship
 
 /**
   * Place to put mathematical intersting functions.
@@ -51,11 +51,11 @@ object MathUtil {
   /**
     * Checks if given sequence, when sorted, is ascending and contains no gaps.
     */
-  //val isConnected: Seq[Int] => Boolean = isConnectedWithIterative
+  val isConnected: Seq[Int] => Boolean = isConnectedWithIterative
 
   //val isConnected: Seq[Int] => Boolean = isConnectedWithFoldLeft
 
-  val isConnected: Seq[Int] => Boolean = isConnectedWithSlidingWindow
+  //val isConnected: Seq[Int] => Boolean = isConnectedWithSlidingWindow
 
 
 }

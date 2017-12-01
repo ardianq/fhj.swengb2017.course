@@ -1,4 +1,4 @@
-package at.fhj.swengb.common
+package at.fhj.utils
 
 import java.nio.file.{Files, Path}
 

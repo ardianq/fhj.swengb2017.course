@@ -1,23 +1,51 @@
-
-package at.fhj.swengb.common
+package at.fhj.utils
 
 import java.awt.image.BufferedImage
 import java.io._
 import java.nio.ByteBuffer
 import java.nio.charset.StandardCharsets
-import java.nio.file.Path
+import java.nio.file.attribute.BasicFileAttributes
+import java.nio.file.{FileVisitResult, FileVisitor, Files, Path}
 import javax.imageio.ImageIO
 
 import scala.util.Try
 import scala.util.control.NonFatal
 
+object FileUtil extends CanLog {
+  
+  val deletionVisitor: FileVisitor[Path] = new FileVisitor[Path] {
 
-/**
-  * A namespace which contains functions to create files on disc.
-  *
-  * Also, creates parent directories if they don't exist for the given paths.
-  */
-object FileWriter extends CanLog {
+    override def postVisitDirectory(dir: Path, exc: IOException): FileVisitResult = {
+      Files.delete(dir)
+      logTrace(s"Deleting ${dir.toAbsolutePath} ... ")
+      FileVisitResult.CONTINUE
+    }
+
+    override def visitFile(file: Path, attrs: BasicFileAttributes): FileVisitResult = {
+      Files.delete(file)
+      FileVisitResult.CONTINUE
+    }
+
+    override def visitFileFailed(file: Path, exc: IOException): FileVisitResult = {
+      FileVisitResult.CONTINUE
+    }
+
+    override def preVisitDirectory(dir: Path, attrs: BasicFileAttributes) = FileVisitResult.CONTINUE
+  }
+
+  /**
+    * Recursively deletes a directory and its descendants.
+    *
+    * @param targetPath
+    */
+  def deleteDirectory(targetPath: Path): Unit = {
+    Files.walkFileTree(targetPath, deletionVisitor)
+  }
+
+  def deleteFile(p : Path)   : Unit ={
+    Files.delete(p)
+    logTrace(s"Deleting ${p.toAbsolutePath} ... ")
+  }
 
   /**
     * Writes content to a file and ensures it gets _really_ written.
@@ -41,7 +69,7 @@ object FileWriter extends CanLog {
   }
 
   def toPath(path: Path, content: String): Try[Unit] = {
-      toPath(path, ByteBuffer.wrap(content.getBytes(StandardCharsets.UTF_8)))
+    toPath(path, ByteBuffer.wrap(content.getBytes(StandardCharsets.UTF_8)))
   }
 
   def toPath(path: Path, content: Array[Byte]): Try[Unit] =

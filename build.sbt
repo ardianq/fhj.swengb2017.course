@@ -2,16 +2,6 @@ import sbt._
 import Dependencies._
 import BuildConstants._
 
-// ------------------------------------------------------
-// main project
-lazy val course = (project in file(".")).
-  settings(
-    organization := org,
-    scalaVersion := scalaVer,
-    version := buildVer,
-    name := "course",
-    libraryDependencies += scalaTest
-  )
 
 // ------------------------------------------------------
 // common
@@ -40,3 +30,15 @@ lazy val labs = (project in file("labs/")).
   ).dependsOn(common)
 
 // END labs ----------------------------------------------
+
+
+// ------------------------------------------------------
+// main project
+lazy val course = (project in file(".")).
+  settings(
+    organization := org,
+    scalaVersion := scalaVer,
+    version := buildVer,
+    name := "course",
+    libraryDependencies += scalaTest
+  ).aggregate(common,labs)
