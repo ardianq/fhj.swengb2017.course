@@ -9,11 +9,11 @@ import scala.collection.JavaConverters._
   */
 object MazeProtocol {
 
-  def convert(pos: MazeProtobuf.Pos): Pos = ???
+  def convert(pos: MazeProtobuf.Pos): Pos = Pos(MazeProtobuf.Pos.X_FIELD_NUMBER, MazeProtobuf.Pos.Y_FIELD_NUMBER)
 
-  def convert(end: Pos): MazeProtobuf.Pos = MazeProtobuf.Pos.newBuilder().build()
+  def convert(end: Pos): MazeProtobuf.Pos = MazeProtobuf.Pos.newBuilder().setX(end.x).setY(end.y).build()
 
-  def convert(cellRect: Rect): MazeProtobuf.Rect = MazeProtobuf.Rect.newBuilder().build()
+  def convert(cellRect: Rect): MazeProtobuf.Rect = MazeProtobuf.Rect.newBuilder().setWidth(cellRect.height).setHeight(cellRect.width).build()
 
   def convert(cell: Cell): MazeProtobuf.Cell = MazeProtobuf.Cell
     .newBuilder().build
