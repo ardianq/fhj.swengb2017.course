@@ -20,7 +20,7 @@ object BattleField {
       if (vesselsToPlace.isEmpty) workingBattleField
       else {
         val v = vesselsToPlace.head
-        loop(vesselsToPlace - v, workingBattleField.addAtRandomPosition(v))
+        loop(vesselsToPlace.tail, workingBattleField.addAtRandomPosition(v))
       }
 
     }
@@ -86,8 +86,8 @@ case class BattleField(width: Int, height: Int, fleet: Fleet) {
 }
 
 
-case class VesselName(name: String) {
-  require(name.nonEmpty, "Name has to be set.")
+case class NonEmptyString(value: String) {
+  require(value.nonEmpty, "value must not be empty.")
 }
 
 /**
@@ -101,7 +101,7 @@ case class VesselName(name: String) {
   * @param name each vessel has a (nonempty) name.
   *
   */
-case class Vessel(name: VesselName, startPos: BattlePos, direction: Direction, size: Int) {
+case class Vessel(name: NonEmptyString, startPos: BattlePos, direction: Direction, size: Int) {
 
   // parts a vessel consists of parts, they have to be connected either in x or in y direction
   final val occupiedPos: Set[BattlePos] =
@@ -123,16 +123,16 @@ object FleetConfig {
   /**
     * Standard configuration for a fleet
     */
-  val Standard =
+  val Standard: FleetConfig =
     FleetConfig(Map(classOf[Battleship] -> 1,
       classOf[Cruiser] -> 2,
       classOf[Destroyer] -> 3,
       classOf[Submarine] -> 4)
     )
 
-  val OneShip = FleetConfig(Map(classOf[Battleship] -> 1))
+  val OneShip: FleetConfig = FleetConfig(Map(classOf[Battleship] -> 1))
 
-  val TwoShips = FleetConfig(Map(classOf[Battleship] -> 2))
+  val TwoShips: FleetConfig = FleetConfig(Map(classOf[Battleship] -> 2))
 
 
 }

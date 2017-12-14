@@ -1,0 +1,56 @@
+syntax = "proto3";
+
+package at.fhj.swengb.apps.maze;
+
+// java specifics
+option java_package = "at.fhj.swengb.apps.maze";
+option java_outer_classname = "MazeProtobuf";
+// see https://developers.google.com/protocol-buffers/docs/reference/java-generated
+// for a comprehensive guide about protobuf datastructures
+
+message Maze {
+    int32 sizeX = 1;
+    int32 sizeY = 2;
+    Pos start = 3;
+    Pos end = 4;
+    repeated Cell grid = 5;
+    Rect cellRect = 6;
+}
+
+message Rect {
+    double width = 1;
+    double height = 2;
+}
+
+message Cell {
+    Pos pos = 1;
+    Coord topLeft = 2;
+    Rect region = 3;
+    oneof someUp {
+        bool noneUp = 4;
+        Pos up = 5;
+    }
+    oneof someRight {
+        bool noneRight = 6;
+        Pos right = 7;
+    }
+    oneof someDown {
+        bool noneDown = 8;
+        Pos down = 9;
+    }
+    oneof someLeft {
+        bool noneLeft = 10;
+        Pos left = 11;
+    }
+
+}
+
+message Coord {
+    double x = 1;
+    double y = 2;
+}
+
+message Pos {
+    int32 x = 1;
+    int32 y = 2;
+}

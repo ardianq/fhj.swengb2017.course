@@ -61,6 +61,6 @@ case class Fleet(vessels: Set[Vessel]) {
 
   def findByPos(pos: BattlePos): Option[Vessel] = vessels.find(v => v.occupiedPos.contains(pos))
 
-  def findByName(name: String): Option[Vessel] = vessels.find(v => v.name == VesselName(name))
+  def findByName(name: String): Option[Vessel] = vessels.find(v => v.name == NonEmptyString(name))
 
 }

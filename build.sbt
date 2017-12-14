@@ -3,16 +3,20 @@ import Dependencies._
 import BuildConstants._
 
 
+lazy val commonSettings: Seq[Def.SettingsDefinition] = Seq(
+  organization := org,
+  scalaVersion := scalaVer,
+  version := buildVer,
+  libraryDependencies ++= Seq(scalaTest,scalacheck),
+  fork := true
+)
+
 // ------------------------------------------------------
 // common
 lazy val common = (project in file("common/")).
+  settings(commonSettings: _*).
   settings(
-    organization := org,
-    scalaVersion := scalaVer,
-    version := buildVer,
     name := "common",
-    libraryDependencies += scalaTest,
-    fork := true
   )
 
 
@@ -20,13 +24,11 @@ lazy val common = (project in file("common/")).
 // labs
 
 lazy val labs = (project in file("labs/")).
- settings(
-    organization := org,
-    scalaVersion := scalaVer,
-    version := buildVer,
+  enablePlugins(ProtobufPlugin).
+  settings(commonSettings: _*).
+  settings(
     name := "labs",
-    libraryDependencies += scalaTest,
-    fork := true
+    javaSource in ProtobufConfig := ((sourceDirectory in Compile).value / "generated"),
   ).dependsOn(common)
 
 // END labs ----------------------------------------------
@@ -35,10 +37,5 @@ lazy val labs = (project in file("labs/")).
 // ------------------------------------------------------
 // main project
 lazy val course = (project in file(".")).
-  settings(
-    organization := org,
-    scalaVersion := scalaVer,
-    version := buildVer,
-    name := "course",
-    libraryDependencies += scalaTest
-  ).aggregate(common,labs)
+  settings(commonSettings: _*).
+  settings(name := "course").aggregate(common,labs)

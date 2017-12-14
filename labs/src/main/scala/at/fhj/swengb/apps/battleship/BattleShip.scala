@@ -31,10 +31,10 @@ object Submarine {
   *
   * @param shipName the name of the ship (must be set and not empty)
   */
-class Battleship(shipName: String, pos: BattlePos, direction: Direction) extends Vessel(VesselName(shipName), pos, direction, Battleship.Size)
+class Battleship(shipName: String, pos: BattlePos, direction: Direction) extends Vessel(NonEmptyString(shipName), pos, direction, Battleship.Size)
 
-class Cruiser(shipName: String, pos: BattlePos, direction: Direction) extends Vessel(VesselName(shipName), pos, direction, Cruiser.Size)
+class Cruiser(shipName: String, pos: BattlePos, direction: Direction) extends Vessel(NonEmptyString(shipName), pos, direction, Cruiser.Size)
 
-class Destroyer(shipName: String, pos: BattlePos, direction: Direction) extends Vessel(VesselName(shipName), pos, direction, Destroyer.Size)
+class Destroyer(shipName: String, pos: BattlePos, direction: Direction) extends Vessel(NonEmptyString(shipName), pos, direction, Destroyer.Size)
 
-class Submarine(shipName: String, pos: BattlePos, direction: Direction) extends Vessel(VesselName(shipName), pos, direction, Submarine.Size)
+class Submarine(shipName: String, pos: BattlePos, direction: Direction) extends Vessel(NonEmptyString(shipName), pos, direction, Submarine.Size)

@@ -22,9 +22,7 @@ class BattleShipFxController extends Initializable {
   @FXML
   def newGame(): Unit = initGame()
 
-  override def initialize(url: URL, rb: ResourceBundle): Unit = {
-    initGame()
-  }
+  override def initialize(url: URL, rb: ResourceBundle): Unit = initGame()
 
   private def getCellHeight(y: Int): Double = battleGroundGridPane.getRowConstraints.get(y).getPrefHeight
 
@@ -34,13 +32,18 @@ class BattleShipFxController extends Initializable {
 
 
   private def initGame(): Unit = {
-    createGame().init(battleGroundGridPane)
+    val game: BattleShipGame = createGame()
+    game.init(battleGroundGridPane)
     appendLog("New game started.")
   }
 
   private def createGame(): BattleShipGame = {
-    val battleField = BattleField.placeRandomly(BattleField(10, 10, Fleet(FleetConfig.Standard)))
+    val field = BattleField(10, 10, Fleet(FleetConfig.Standard))
+
+    val battleField: BattleField = BattleField.placeRandomly(field)
+
     val game = BattleShipGame(battleField, getCellWidth, getCellHeight, appendLog)
+
     game
   }
 
